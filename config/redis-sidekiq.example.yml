@@ -1,0 +1,20 @@
+default: &default
+  host: <%= ENV.fetch('REDIS_SIDEKIQ_HOST'){'redis'} %>
+  port: <%= ENV.fetch('REDIS_SIDEKIQ_PORT'){'6379'} %>
+  db: 1
+  timeout: 5
+  connect_timeout: 5
+  password: <%= ENV.fetch('REDIS_SIDEKIQ_PASSWORD') %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  db: 15
+
+staging:
+  <<: *default
+
+production:
+  <<: *default

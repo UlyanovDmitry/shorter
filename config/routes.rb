@@ -1,3 +1,9 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :shortened_urls,
+    path: :urls,
+    only: [:create, :show],
+    controller: :shortened_urls,
+    param: :unique_key
+
+  get 'urls/:unique_key/stats', to: 'shortened_urls#stats', as: 'shortened_url_stats'
 end
