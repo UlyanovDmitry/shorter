@@ -3,6 +3,7 @@
 require 'rails_helper'
 
 describe ShortenedUrlsController, type: :controller do
+  render_views
   fixtures :shortened_urls
 
   describe '#POST /urls' do

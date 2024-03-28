@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-sidekiq_redis_config = YAML.load(ERB.new(File.read('config/redis-sidekiq.yml')).result)
+sidekiq_redis_config = YAML.safe_load(ERB.new(File.read('config/redis-sidekiq.yml')).result, aliases: true)
   .with_indifferent_access
   .fetch(Rails.env, {})
 
