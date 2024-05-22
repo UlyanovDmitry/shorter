@@ -20,11 +20,19 @@ describe ShortenedUrlsController, type: :controller do
           expect(response).to have_http_status(:success)
           expect(response.body).to eq("#{test_host}/urls/#{last_url.unique_key}")
         end
+
+        context 'when URL has not ascii characters' do
+          let(:destination_url) { 'https://example.ру' }
+
+          it 'returns new shortened URL' do
+            expect(response).to have_http_status(:success)
+          end
+        end
       end
 
       context 'when URL was already shorted' do
         let(:shortened_url) { shortened_urls(:example_ru) }
-        let(:destination_url) { shortened_url.url }
+        let(:destination_url) { 'https://example.ru' }
 
         it 'returns old shortened URL' do
           expect(response).to have_http_status(:success)
@@ -43,7 +51,6 @@ describe ShortenedUrlsController, type: :controller do
       before do
         allow(ShortenedUrl)
           .to receive(:find_or_initialize_by)
-          .with(url: destination_url)
           .and_return(new_shortened_url)
       end
 
@@ -51,6 +58,7 @@ describe ShortenedUrlsController, type: :controller do
         post(:create, params:)
 
         expect(response).to have_http_status(:internal_server_error)
+        expect(response.body).to eq('Unique key has already been taken')
       end
     end
 

@@ -32,6 +32,14 @@ class ShortenedUrlsController < ApplicationController
   private
 
   def normalized_url_parameter
-    URI.parse(params.require(:url)).normalize.to_s
+    normalize_url escape_url_parameter
+  end
+
+  def escape_url_parameter
+    CGI.escape(params.require(:url).to_s)
+  end
+
+  def normalize_url(url)
+    URI.parse(url.to_s).normalize.to_s
   end
 end

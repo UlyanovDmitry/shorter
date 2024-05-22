@@ -1,6 +1,6 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 example_ru:
-  url: 'https://example.ru/'
+  url: 'https%3A%2F%2Fexample.ru'
   unique_key: abc
   use_count: 10
