@@ -25,6 +25,6 @@ class ShortenedUrl < ApplicationRecord
   end
 
   def unique_key_candidate
-    (0...UNIQUE_KEY_LENGTH).map{ KEY_CHARS[rand(KEY_CHARS.size)] }.join
+    (0...UNIQUE_KEY_LENGTH).map { KEY_CHARS[rand(KEY_CHARS.size)] }.join
   end
 end

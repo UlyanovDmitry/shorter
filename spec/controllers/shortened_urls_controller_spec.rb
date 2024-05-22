@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 
 describe ShortenedUrlsController, type: :controller do
@@ -12,7 +10,7 @@ describe ShortenedUrlsController, type: :controller do
     let(:test_host) { 'http://test.host' }
 
     context 'when new shortened url is valid' do
-      before { post :create, params: params }
+      before { post :create, params: }
 
       context 'when URL is new' do
         let(:destination_url) { 'https://new_host.pro/' }
@@ -45,12 +43,12 @@ describe ShortenedUrlsController, type: :controller do
       before do
         allow(ShortenedUrl)
           .to receive(:find_or_initialize_by)
-                .with(url: destination_url)
-                .and_return(new_shortened_url)
+          .with(url: destination_url)
+          .and_return(new_shortened_url)
       end
 
       it 'returns 400 status' do
-        post :create, params: params
+        post(:create, params:)
 
         expect(response).to have_http_status(:internal_server_error)
       end
@@ -59,7 +57,7 @@ describe ShortenedUrlsController, type: :controller do
     context 'when URL was not send' do
       let(:params) { {} }
 
-      before { post :create, params: params }
+      before { post :create, params: }
 
       it 'returns 400 status' do
         expect(response).to have_http_status(:bad_request)

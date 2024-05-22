@@ -1,0 +1,22 @@
+AllCops:
+  NewCops: enable
+  Exclude:
+    - bin/*
+
+Style/BlockComments:
+  Exclude:
+    - spec/spec_helper.rb
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/controllers/shortened_urls_controller_spec.rb
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never
+
+Style/NumericLiterals:
+  Exclude:
+    - db/schema.rb

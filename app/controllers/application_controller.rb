@@ -16,6 +16,6 @@ class ApplicationController < ActionController::API
   end
 
   def render_error_message(message, status: :internal_server_error)
-    render plain: message, status: status
+    render plain: message, status:
   end
 end

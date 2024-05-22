@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-require "rails_helper"
+require 'rails_helper'
 
 describe 'routes for ShortenedUrls', type: :routing do
   context 'when post request' do

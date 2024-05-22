@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 
 describe ShortenedUrlShowCounter do
@@ -17,7 +15,7 @@ describe ShortenedUrlShowCounter do
       it 'updates use_count of shortened_url' do
         expect { subject }
           .to change { shortened_url.reload.use_count }.from(10).to(11)
-          .and change { shortened_url.reload.updated_at }
+          .and(change { shortened_url.reload.updated_at })
       end
     end
   end
