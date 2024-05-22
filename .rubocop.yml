@@ -3,6 +3,12 @@ AllCops:
   Exclude:
     - bin/*
 
+Layout/CaseIndentation:
+  EnforcedStyle: end
+
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable
+
 Style/BlockComments:
   Exclude:
     - spec/spec_helper.rb

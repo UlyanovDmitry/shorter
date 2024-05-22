@@ -18,7 +18,7 @@ describe ShortenedUrlsController, type: :controller do
 
         it 'returns new shortened URL' do
           expect(response).to have_http_status(:success)
-          expect(response.body).to eq("#{test_host}/urls/#{last_url.unique_key}")
+          expect(response.parsed_body).to include(url: "#{test_host}/urls/#{last_url.unique_key}")
         end
 
         context 'when URL has not ascii characters' do
@@ -36,7 +36,7 @@ describe ShortenedUrlsController, type: :controller do
 
         it 'returns old shortened URL' do
           expect(response).to have_http_status(:success)
-          expect(response.body).to eq("#{test_host}/urls/#{shortened_url.unique_key}")
+          expect(response.parsed_body).to include(url: "#{test_host}/urls/#{shortened_url.unique_key}")
         end
       end
     end
@@ -58,7 +58,7 @@ describe ShortenedUrlsController, type: :controller do
         post(:create, params:)
 
         expect(response).to have_http_status(:internal_server_error)
-        expect(response.body).to eq('Unique key has already been taken')
+        expect(response.parsed_body).to include(message: 'Unique key has already been taken')
       end
     end
 
@@ -84,11 +84,10 @@ describe ShortenedUrlsController, type: :controller do
 
       before { allow(ShortenedUrlShowCounter).to receive(:perform_later) }
 
-      it 'returns full URL' do
+      it 'redirect to original url' do
         get_request
 
-        expect(response).to have_http_status(:success)
-        expect(response.body).to eq('https://example.ru/')
+        expect(response).to have_http_status(:redirect)
       end
 
       it 'adds job for increment of usage count' do
@@ -120,7 +119,7 @@ describe ShortenedUrlsController, type: :controller do
 
       it 'returns statistic' do
         expect(response).to have_http_status(:success)
-        expect(response.body).to eq('10')
+        expect(response.parsed_body).to include(url_key: shortened_url.unique_key, count: '10')
       end
     end
 
