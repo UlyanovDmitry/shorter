@@ -6,5 +6,5 @@ test:
 
 production:
   adapter: redis
-  url: <%= Rails.application.credentials.redis.url %>
+  url: <%= Rails.application.credentials.dig(:redis, :url) %>
   channel_prefix: shorter_production

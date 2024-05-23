@@ -1,10 +1,10 @@
 default: &default
-  host: <%= Rails.application.credentials.redis.host %>
-  port: <%= Rails.application.credentials.redis.port %>
+  host: <%= Rails.application.credentials.dig(:redis, :host) %>
+  port: <%= Rails.application.credentials.dig(:redis, :port) %>
   db: 1
   timeout: 5
   connect_timeout: 5
-  password: <%= Rails.application.credentials.redis.port %>
+  password: <%= Rails.application.credentials.dig(:redis, :password) %>
 
 development:
   <<: *default
