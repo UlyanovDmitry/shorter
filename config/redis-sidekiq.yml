@@ -1,10 +1,10 @@
 default: &default
-  host: <%= ENV.fetch('REDIS_SIDEKIQ_HOST'){'redis'} %>
-  port: <%= ENV.fetch('REDIS_SIDEKIQ_PORT'){'6379'} %>
+  host: <%= Rails.application.credentials.redis.host %>
+  port: <%= Rails.application.credentials.redis.port %>
   db: 1
   timeout: 5
   connect_timeout: 5
-  password: <%= ENV.fetch('REDIS_SIDEKIQ_PASSWORD'){ '' } %>
+  password: <%= Rails.application.credentials.redis.port %>
 
 development:
   <<: *default

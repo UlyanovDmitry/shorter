@@ -45,3 +45,5 @@ end
 gem 'foreman'
 gem 'sidekiq'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'yabeda-prometheus'
+gem 'yabeda-rails'

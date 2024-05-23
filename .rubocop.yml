@@ -11,6 +11,9 @@ Layout/CaseIndentation:
 Layout/EndAlignment:
   EnforcedStyleAlignWith: variable
 
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
 Style/BlockComments:
   Exclude:
     - spec/spec_helper.rb
