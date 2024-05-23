@@ -21,7 +21,7 @@ class ApplicationController < ActionController::API
 
   def construct_error_body(message)
     if message.is_a? Array
-      { message:message.first.to_s, errors: message.map(&:to_s) }
+      { message: message.first.to_s, errors: message.map(&:to_s) }
     else
       { message: message.to_s }
     end

@@ -80,6 +80,8 @@ GEM
     bigdecimal (3.1.7)
     bootsnap (1.18.3)
       msgpack (~> 1.2)
+    brakeman (6.1.2)
+      racc
     builder (3.2.4)
     byebug (11.1.3)
     coderay (1.1.3)
@@ -217,17 +219,17 @@ GEM
     rspec-expectations (3.13.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
-    rspec-mocks (3.13.0)
+    rspec-mocks (3.13.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
-    rspec-rails (5.0.3)
-      actionpack (>= 5.2)
-      activesupport (>= 5.2)
-      railties (>= 5.2)
-      rspec-core (~> 3.10)
-      rspec-expectations (~> 3.10)
-      rspec-mocks (~> 3.10)
-      rspec-support (~> 3.10)
+    rspec-rails (6.1.2)
+      actionpack (>= 6.1)
+      activesupport (>= 6.1)
+      railties (>= 6.1)
+      rspec-core (~> 3.13)
+      rspec-expectations (~> 3.13)
+      rspec-mocks (~> 3.13)
+      rspec-support (~> 3.13)
     rspec-support (3.13.1)
     rubocop (1.63.5)
       json (~> 2.3)
@@ -272,6 +274,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
+  brakeman
   byebug
   dotenv-rails
   foreman
@@ -281,7 +284,7 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 7.1.3, >= 7.1.3.2)
   redis (~> 4.0)
-  rspec-rails (~> 5.0.0)
+  rspec-rails (~> 6.1.0)
   rubocop
   sidekiq
   spring
