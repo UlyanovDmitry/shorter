@@ -20,7 +20,7 @@ Style/BlockComments:
 
 Metrics/BlockLength:
   Exclude:
-    - spec/controllers/shortened_urls_controller_spec.rb
+    - spec/**/**
 
 Style/Documentation:
   Enabled: false

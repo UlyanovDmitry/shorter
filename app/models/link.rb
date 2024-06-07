@@ -1,6 +1,5 @@
 class Link < ApplicationRecord
-  KEY_CHARS = ('a'..'z').to_a + (0..9).to_a.freeze
-  UNIQUE_KEY_LENGTH = 5
+  UNIQUE_KEY_LENGTH = 6
 
   before_validation :generate_unique_key, on: :create
 
@@ -18,13 +17,17 @@ class Link < ApplicationRecord
   private
 
   def generate_unique_key
+    url = self.url
+
     self.unique_key ||= loop do
-      candidate = unique_key_candidate
-      break candidate unless self.class.exists?(unique_key: candidate)
+      hash_candidate = unique_key_candidate(url)
+      break hash_candidate unless self.class.exists?(unique_key: hash_candidate)
+
+      url += '1'
     end
   end
 
-  def unique_key_candidate
-    (0...UNIQUE_KEY_LENGTH).map { KEY_CHARS[rand(KEY_CHARS.size)] }.join
+  def unique_key_candidate(url)
+    Digest::MD5.hexdigest(url).first(UNIQUE_KEY_LENGTH)
   end
 end

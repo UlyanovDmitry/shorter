@@ -4,13 +4,10 @@ describe Link, type: :model do
   fixtures :links
 
   let(:destination_url) { 'https://example.ru' }
-  let(:default_params) do
-    { url: destination_url }
-  end
+  let(:default_params) { { url: destination_url } }
+  subject { described_class.new url_params }
 
   context 'validates' do
-    subject { described_class.new url_params }
-
     let(:url_params) { default_params }
 
     it { is_expected.to be_valid }
@@ -32,6 +29,18 @@ describe Link, type: :model do
         expect(subject).to_not be_valid
         expect(subject.errors.attribute_names).to match_array(:url)
       end
+    end
+  end
+
+  context 'when the unique key is generated' do
+    let(:url_params) { default_params }
+
+    before { subject.save! }
+
+    it 'generates a unique key' do
+      expect(subject.unique_key).to_not be_nil
+      expect(subject.unique_key).to_not be_empty
+      expect(subject.unique_key.size).to eq(6)
     end
   end
 end
