@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe ShortenedUrl, type: :model do
-  fixtures :shortened_urls
+describe Link, type: :model do
+  fixtures :links
 
   let(:destination_url) { 'https://example.ru' }
   let(:default_params) do
@@ -16,7 +16,7 @@ describe ShortenedUrl, type: :model do
     it { is_expected.to be_valid }
 
     context 'when the unique key is not unique' do
-      let(:old_url) { shortened_urls(:example_ru) }
+      let(:old_url) { links(:example_ru) }
       let(:url_params) { default_params.merge(unique_key: old_url.unique_key) }
 
       it 'is not valid' do

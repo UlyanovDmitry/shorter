@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-describe ShortenedUrlsController, type: :controller do
+describe LinksController, type: :controller do
   render_views
-  fixtures :shortened_urls
+  fixtures :links
 
-  describe '#POST /urls' do
+  describe '#POST /links' do
     let(:destination_url) { 'https://example.ru' }
     let(:params) { { url: destination_url } }
     let(:test_host) { 'http://test.host' }
@@ -14,11 +14,11 @@ describe ShortenedUrlsController, type: :controller do
 
       context 'when URL is new' do
         let(:destination_url) { 'https://new_host.pro/' }
-        let(:last_url) { ShortenedUrl.last.reload }
+        let(:last_url) { Link.last.reload }
 
         it 'returns new shortened URL' do
           expect(response).to have_http_status(:success)
-          expect(response.parsed_body).to include(url: "#{test_host}/urls/#{last_url.unique_key}")
+          expect(response.parsed_body).to include(url: "#{test_host}/links/#{last_url.unique_key}")
         end
 
         context 'when URL has not ascii characters' do
@@ -31,25 +31,25 @@ describe ShortenedUrlsController, type: :controller do
       end
 
       context 'when URL was already shorted' do
-        let(:shortened_url) { shortened_urls(:example_ru) }
+        let(:shortened_url) { links(:example_ru) }
         let(:destination_url) { 'https://example.ru' }
 
         it 'returns old shortened URL' do
           expect(response).to have_http_status(:success)
-          expect(response.parsed_body).to include(url: "#{test_host}/urls/#{shortened_url.unique_key}")
+          expect(response.parsed_body).to include(url: "#{test_host}/links/#{shortened_url.unique_key}")
         end
       end
     end
 
     context 'when new shortened url is not valid' do
       let(:destination_url) { 'https://new_host.pro/' }
-      let(:old_shortened_url) { shortened_urls(:example_ru) }
+      let(:old_shortened_url) { links(:example_ru) }
       let(:new_shortened_url) do
-        ShortenedUrl.new(url: destination_url, unique_key: old_shortened_url.unique_key)
+        Link.new(url: destination_url, unique_key: old_shortened_url.unique_key)
       end
 
       before do
-        allow(ShortenedUrl)
+        allow(Link)
           .to receive(:find_or_initialize_by)
           .and_return(new_shortened_url)
       end
@@ -73,16 +73,16 @@ describe ShortenedUrlsController, type: :controller do
     end
   end
 
-  describe '#GET /urls/:short_url' do
+  describe '#GET /links/:short_url' do
     let(:short_url) { '' }
 
     subject(:get_request) { get :show, params: { unique_key: short_url } }
 
     context 'when url exists' do
-      let(:shortened_url) { shortened_urls(:example_ru) }
+      let(:shortened_url) { links(:example_ru) }
       let(:short_url) { shortened_url.unique_key }
 
-      before { allow(ShortenedUrlShowCounter).to receive(:perform_later) }
+      before { allow(ClickCounter).to receive(:perform_later) }
 
       it 'redirect to original url' do
         get_request
@@ -91,7 +91,7 @@ describe ShortenedUrlsController, type: :controller do
       end
 
       it 'adds job for increment of usage count' do
-        expect(ShortenedUrlShowCounter).to receive(:perform_later).with(short_url)
+        expect(ClickCounter).to receive(:perform_later).with(short_url)
 
         get_request
       end
@@ -108,13 +108,13 @@ describe ShortenedUrlsController, type: :controller do
     end
   end
 
-  describe '#GET /urls/:short_url/stats' do
+  describe '#GET /links/:short_url/stats' do
     let(:short_url) { '' }
 
     before { get :stats, params: { unique_key: short_url } }
 
     context 'when url exists' do
-      let(:shortened_url) { shortened_urls(:example_ru) }
+      let(:shortened_url) { links(:example_ru) }
       let(:short_url) { shortened_url.unique_key }
 
       it 'returns statistic' do

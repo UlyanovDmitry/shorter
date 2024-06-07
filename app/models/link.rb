@@ -1,4 +1,4 @@
-class ShortenedUrl < ApplicationRecord
+class Link < ApplicationRecord
   KEY_CHARS = ('a'..'z').to_a + (0..9).to_a.freeze
   UNIQUE_KEY_LENGTH = 5
 
