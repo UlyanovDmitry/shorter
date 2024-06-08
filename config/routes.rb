@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :links, only: %i[create show], param: :unique_key do
-    get :stats, on: :member
+  namespace :admin do
+    resources :links, only: :create, param: :unique_key do
+      get :stats, on: :member
+    end
   end
+  resources :links, only: :show, param: :unique_key
+  # get ':unique_key', to: 'links#show', as: 'link'
+  # resources :links, only: :show, param: :unique_key
 end
