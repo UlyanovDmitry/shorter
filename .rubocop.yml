@@ -4,6 +4,7 @@ AllCops:
     - bin/*
     - vendor/**/**
     - gemfiles/vendor/bundle/**/*
+    - db/schema.rb
 
 Layout/CaseIndentation:
   EnforcedStyle: end
@@ -27,7 +28,3 @@ Style/Documentation:
 
 Style/FrozenStringLiteralComment:
   EnforcedStyle: never
-
-Style/NumericLiterals:
-  Exclude:
-    - db/schema.rb
