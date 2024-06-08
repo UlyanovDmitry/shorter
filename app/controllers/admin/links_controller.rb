@@ -1,5 +1,7 @@
 module Admin
   class LinksController < ApplicationController
+    respond_to :json
+
     def create
       destination_url = normalized_url_parameter
 

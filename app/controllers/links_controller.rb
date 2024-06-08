@@ -1,4 +1,6 @@
 class LinksController < ApplicationController
+  respond_to :json
+
   def show
     original_url = Rails.cache.fetch(params_url_key, expires_in: 2.days) do
       Link.find_by!(unique_key: params_url_key).url
