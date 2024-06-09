@@ -8,6 +8,7 @@ class Link < ApplicationRecord
   validates :url, :unique_key, presence: true
 
   belongs_to :user
+  has_many :clicks, foreign_key: 'link_id', primary_key: :unique_key, dependent: :nullify
 
   def to_param
     unique_key

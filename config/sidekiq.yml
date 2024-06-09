@@ -1,3 +1,8 @@
 :logfile: ./log/sidekiq.log
 :queues:
   - default
+:scheduler:
+  :schedule:
+    clicks_importer:
+      cron: "*/5 * * * *" # Every 5 minutes
+      class: ClicksImporter

@@ -64,6 +64,8 @@ GEM
       activemodel (= 7.1.3.2)
       activesupport (= 7.1.3.2)
       timeout (>= 0.4.0)
+    activerecord-import (1.7.0)
+      activerecord (>= 4.2)
     activestorage (7.1.3.2)
       actionpack (= 7.1.3.2)
       activejob (= 7.1.3.2)
@@ -120,7 +122,12 @@ GEM
       zeitwerk (~> 2.6)
     dry-initializer (3.1.1)
     erubi (1.12.0)
+    et-orbi (1.2.11)
+      tzinfo
     ffi (1.16.3)
+    fugit (1.11.0)
+      et-orbi (~> 1, >= 1.2.11)
+      raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.4)
@@ -149,6 +156,7 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.5)
     minitest (5.22.3)
+    mock_redis (0.44.0)
     msgpack (1.7.2)
     mutex_m (0.2.0)
     net-imap (0.4.10)
@@ -191,6 +199,7 @@ GEM
       stringio
     puma (6.4.2)
       nio4r (~> 2.0)
+    raabro (1.4.0)
     racc (1.7.3)
     rack (3.0.10)
     rack-cors (2.0.2)
@@ -281,15 +290,22 @@ GEM
       parser (>= 3.3.1.0)
     ruby-next-core (1.0.3)
     ruby-progressbar (1.13.0)
+    rufus-scheduler (3.9.1)
+      fugit (~> 1.1, >= 1.1.6)
     sidekiq (7.2.2)
       concurrent-ruby (< 2)
       connection_pool (>= 2.3.0)
       rack (>= 2.2.4)
       redis-client (>= 0.19.0)
+    sidekiq-scheduler (5.0.3)
+      rufus-scheduler (~> 3.2)
+      sidekiq (>= 6, < 8)
+      tilt (>= 1.4.0)
     spring (4.1.3)
     stringio (3.1.0)
     strscan (3.1.0)
     thor (1.3.1)
+    tilt (2.3.0)
     timeout (0.4.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
@@ -330,11 +346,13 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  activerecord-import
   bootsnap
   brakeman
   devise
   devise-jwt
   listen (~> 3.3)
+  mock_redis
   paranoia (~> 2.2)
   pg (~> 1.1)
   pry-rails
@@ -345,6 +363,7 @@ DEPENDENCIES
   rspec-rails (~> 6.1.0)
   rubocop
   sidekiq
+  sidekiq-scheduler
   spring
   tzinfo-data
   yabeda-prometheus
@@ -354,4 +373,4 @@ RUBY VERSION
    ruby 3.3.1p55
 
 BUNDLED WITH
-   2.5.6
+   2.5.9

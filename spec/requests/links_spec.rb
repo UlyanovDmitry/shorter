@@ -12,7 +12,7 @@ RSpec.describe 'links', type: :request do
       let(:shortened_url) { links(:example_ru) }
       let(:short_url) { shortened_url.unique_key }
 
-      before { allow(ClickCounter).to receive(:perform_later) }
+      before { allow(ClicksImporter).to receive(:perform_later) }
 
       it 'redirect to original url' do
         expect(response).to have_http_status(:redirect)

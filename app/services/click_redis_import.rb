@@ -1,4 +1,4 @@
-class ClickLogger
+class ClickRedisImport
   attr_reader :request, :link_id
 
   REDIS_CLICKS_KEY = 'clicks'.freeze

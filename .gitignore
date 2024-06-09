@@ -36,3 +36,4 @@
 
 # Ignore Jetbrains Application's configs
 .idea/
+coverage/

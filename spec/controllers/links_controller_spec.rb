@@ -12,10 +12,10 @@ describe LinksController, type: :controller do
     context 'when url exists' do
       let(:shortened_url) { links(:example_ru) }
       let(:short_url) { shortened_url.unique_key }
-      let(:click_logger) { double(ClickLogger) }
+      let(:click_logger) { double(ClickRedisImport) }
 
       it 'adds job for increment of usage count' do
-        expect(ClickLogger).to receive(:new).and_return(click_logger)
+        expect(ClickRedisImport).to receive(:new).and_return(click_logger)
         expect(click_logger).to receive(:call).and_return(true)
 
         get_request

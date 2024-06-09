@@ -4,14 +4,16 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.3.1'
 
 gem 'active_model_serializers'
+gem 'activerecord-import'
 gem 'devise'
 gem 'devise-jwt'
+gem 'mock_redis'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
+gem 'paranoia', '~> 2.2'
 gem 'rails', '~> 7.1.3', '>= 7.1.3.2'
-gem "paranoia", "~> 2.2"
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
@@ -30,6 +32,7 @@ gem 'redis', '~> 4.0'
 gem 'bootsnap', require: false
 
 gem 'sidekiq'
+gem 'sidekiq-scheduler'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'yabeda-prometheus'
