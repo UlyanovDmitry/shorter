@@ -8,7 +8,7 @@ class LinksController < ApplicationController
       end
     end
 
-    ClickCounter.perform_later(params_url_key)
+    ClickLogger.new(link_id: params_url_key, request:).call
 
     redirect_to CGI.unescape(original_url), allow_other_host: true
   end
