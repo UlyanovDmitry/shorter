@@ -10,9 +10,7 @@ Rails.application.routes.draw do
     }
   )
   namespace :admin do
-    resources :links, only: :create, param: :unique_key do
-      get :stats, on: :member
-    end
+    resources :links, except: :update, param: :unique_key
   end
   resources :links, only: :show, param: :unique_key
 end

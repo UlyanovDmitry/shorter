@@ -6,6 +6,8 @@ class Link < ApplicationRecord
   validates :unique_key, uniqueness: true
   validates :url, :unique_key, presence: true
 
+  belongs_to :user
+
   def to_param
     unique_key
   end

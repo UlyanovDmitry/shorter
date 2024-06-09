@@ -1,7 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe 'Admin::LinksControllers', type: :request do
-  fixtures :links
+RSpec.describe 'Admin::LinksController', type: :request do
+  fixtures :links, :users
+
+  let(:user) { users(:admin) }
+
+  before { sign_in(user) }
 
   describe 'POST /create' do
     let(:destination_url) { 'https://example.ru' }
@@ -20,7 +24,7 @@ RSpec.describe 'Admin::LinksControllers', type: :request do
 
       it 'returns new shortened URL' do
         expect(response).to have_http_status(:success)
-        expect(response.parsed_body).to include(url: "#{test_host}/links/#{last_url.unique_key}")
+        expect(response.parsed_body).to include(destination_url: destination_url)
       end
 
       context 'when URL has not ascii characters' do
@@ -38,7 +42,7 @@ RSpec.describe 'Admin::LinksControllers', type: :request do
 
       it 'returns old shortened URL' do
         expect(response).to have_http_status(:success)
-        expect(response.parsed_body).to include(url: "#{test_host}/links/#{shortened_url.unique_key}")
+        expect(response.parsed_body).to include(destination_url: destination_url)
       end
     end
 
@@ -55,7 +59,7 @@ RSpec.describe 'Admin::LinksControllers', type: :request do
     let(:shortened_url) { links(:example_ru) }
     let(:short_url) { shortened_url.unique_key }
 
-    before { get "/admin/links/#{short_url}/stats" }
+    before { get "/admin/links/#{short_url}" }
 
     it 'returns http success' do
       expect(response).to have_http_status(:success)

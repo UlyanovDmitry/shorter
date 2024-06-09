@@ -12,11 +12,11 @@ describe 'routes for ShortenedUrls', type: :routing do
     end
 
     context 'when stats request' do
-      subject { get('admin/links/abc/stats') }
+      subject { get('admin/links/abc') }
 
       it 'routes to the statistic method' do
         expect(subject)
-          .to route_to(controller: 'admin/links', action: 'stats', unique_key: 'abc')
+          .to route_to(controller: 'admin/links', action: 'show', unique_key: 'abc')
       end
     end
   end

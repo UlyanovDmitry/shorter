@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 describe Link, type: :model do
-  fixtures :links
+  fixtures :links, :users
 
   let(:destination_url) { 'https://example.ru' }
-  let(:default_params) { { url: destination_url } }
+  let(:default_params) { { url: destination_url, user: users(:admin) } }
   subject { described_class.new url_params }
 
-  context 'validates' do
+  describe 'validates' do
     let(:url_params) { default_params }
 
     it { is_expected.to be_valid }

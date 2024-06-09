@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_08_123727) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_08_160013) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,8 +20,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_08_123727) do
     t.integer "use_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["unique_key"], name: "index_links_on_unique_key", unique: true
     t.index ["url"], name: "index_links_on_url"
+    t.index ["user_id"], name: "index_links_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -32,7 +34,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_08_123727) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "jti"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["jti"], name: "index_users_on_jti"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
