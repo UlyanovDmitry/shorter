@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   devise_for(
     :users, path: '', path_names: {
@@ -13,4 +15,6 @@ Rails.application.routes.draw do
     resources :links, except: :update, param: :unique_key
   end
   resources :links, only: :show, param: :unique_key
+
+  mount Sidekiq::Web => '/admin/sidekiq'
 end
