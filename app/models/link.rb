@@ -1,4 +1,5 @@
 class Link < ApplicationRecord
+  acts_as_paranoid
   UNIQUE_KEY_LENGTH = 6
 
   before_validation :generate_unique_key, on: :create

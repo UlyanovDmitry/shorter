@@ -37,7 +37,7 @@ RSpec.describe 'Admin::LinksController', type: :request do
     end
 
     context 'when URL was already shorted' do
-      let(:shortened_url) { links(:example_ru) }
+      let(:link) { links(:example_ru) }
       let(:destination_url) { 'https://example.ru' }
 
       it 'returns old shortened URL' do
@@ -55,9 +55,9 @@ RSpec.describe 'Admin::LinksController', type: :request do
     end
   end
 
-  describe 'GET /stats' do
-    let(:shortened_url) { links(:example_ru) }
-    let(:short_url) { shortened_url.unique_key }
+  describe 'GET /show' do
+    let(:link) { links(:example_ru) }
+    let(:short_url) { link.unique_key }
 
     before { get "/admin/links/#{short_url}" }
 
@@ -71,6 +71,16 @@ RSpec.describe 'Admin::LinksController', type: :request do
       it 'returns 404 status' do
         expect(response).to have_http_status(:not_found)
       end
+    end
+  end
+
+  describe 'DELETE /destroy' do
+    let(:link) { links(:example_ru) }
+
+    before { delete "/admin/links/#{link.unique_key}" }
+
+    it 'returns http success' do
+      expect(response).to have_http_status(:success)
     end
   end
 end

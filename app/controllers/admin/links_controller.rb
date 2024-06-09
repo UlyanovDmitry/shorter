@@ -22,9 +22,15 @@ module Admin
     end
 
     def show
-      shortened_url = user_links.find_by!(unique_key: params_url_key)
+      link = user_links.find_by!(unique_key: params_url_key)
 
-      render json: { url_key: params_url_key, count: shortened_url.use_count.to_s }
+      render json: { url_key: params_url_key, count: link.use_count.to_s }
+    end
+
+    def destroy
+      link = user_links.find_by!(unique_key: params_url_key)
+      link.destroy
+      render json: link
     end
 
     private
