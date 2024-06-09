@@ -39,10 +39,14 @@ module Shorter
     config.api_only = true
 
     # This also configures session_options for use below
-    config.session_store :cookie_store, key: '_interslice_session'
+    config.session_store :cookie_store, key: 'shorter_session'
+
+    config.middleware.insert_before Rack::Head, ActionDispatch::Session::CookieStore, config.session_options
+    config.middleware.insert_before ActionDispatch::Session::CookieStore, ActionDispatch::Cookies
 
     # Required for all session management (regardless of session_store)
     config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
 
     config.middleware.use config.session_store, config.session_options
   end

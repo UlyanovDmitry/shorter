@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'LinksControllers', type: :request do
+RSpec.describe 'links', type: :request do
   fixtures :links
 
   describe 'GET /links/:short_url' do

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Admin::LinksController', type: :request do
+RSpec.describe 'admin/links', type: :request do
   fixtures :links, :users
 
   let(:user) { users(:admin) }

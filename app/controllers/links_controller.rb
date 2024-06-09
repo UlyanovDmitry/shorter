@@ -3,7 +3,9 @@ class LinksController < ApplicationController
 
   def show
     original_url = Rails.cache.fetch(params_url_key, expires_in: 2.days) do
-      Link.find_by!(unique_key: params_url_key).url
+      ActiveRecord::Base.connected_to(role: :reading) do
+        Link.find_by!(unique_key: params_url_key).url
+      end
     end
 
     ClickCounter.perform_later(params_url_key)
