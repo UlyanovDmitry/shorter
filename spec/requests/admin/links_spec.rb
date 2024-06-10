@@ -24,7 +24,7 @@ RSpec.describe 'admin/links', type: :request do
 
       it 'returns new shortened URL' do
         expect(response).to have_http_status(:success)
-        expect(response.parsed_body).to include(destination_url: destination_url)
+        expect(response.parsed_body).to include(destination_url:)
       end
 
       context 'when URL has not ascii characters' do
@@ -42,7 +42,7 @@ RSpec.describe 'admin/links', type: :request do
 
       it 'returns old shortened URL' do
         expect(response).to have_http_status(:success)
-        expect(response.parsed_body).to include(destination_url: destination_url)
+        expect(response.parsed_body).to include(destination_url:)
       end
     end
 

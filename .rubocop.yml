@@ -5,6 +5,7 @@ AllCops:
     - vendor/**/**
     - gemfiles/vendor/bundle/**/*
     - db/schema.rb
+    - db/primary_replica_schema.rb
 
 Layout/CaseIndentation:
   EnforcedStyle: end
