@@ -1,0 +1,15 @@
+.idea/
+.git/
+docker/
+coverage/
+tmp
+log
+.DS_Store
+.bin
+.gitignore
+.bundleignore
+.bundle
+.byebug_history
+.rspec
+.env
+.env.example

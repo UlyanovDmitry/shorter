@@ -2,7 +2,6 @@ class ClickRedisImport
   attr_reader :request, :link_id
 
   REDIS_CLICKS_KEY = 'clicks'.freeze
-  REDIS_URL = Rails.application.credentials.dig(:redis, :url)
 
   def initialize(link_id:, request:)
     @link_id = link_id

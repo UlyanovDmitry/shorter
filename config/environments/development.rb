@@ -22,7 +22,9 @@ Rails.application.configure do
     # config.public_file_server.headers = {
     #   'Cache-Control' => "public, max-age=#{2.days.to_i}"
     # }
-    config.cache_store = :redis_cache_store, { url: Rails.application.credentials.dig(:redis, :url) }
+    config.cache_store = :redis_cache_store, { url: ENV.fetch('REDIS_URL') do
+                                                      Rails.application.credentials.dig(:redis, :url)
+                                                    end }
   else
     config.action_controller.perform_caching = false
 

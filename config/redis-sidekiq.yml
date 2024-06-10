@@ -1,10 +1,10 @@
 default: &default
-  host: <%= Rails.application.credentials.dig(:redis, :host) %>
-  port: <%= Rails.application.credentials.dig(:redis, :port) %>
+  host: <%= ENV.fetch("REDIS_HOST") { 'redis' } %>
+  port: <%= ENV.fetch("REDIS_PORT") { 6379 } %>
   db: 1
   timeout: 5
   connect_timeout: 5
-  password: <%= Rails.application.credentials.dig(:redis, :password) %>
+  password: <%= ENV.fetch("REDIS_PASSWORD") { Rails.application.credentials.dig(:redis, :password) } %>
 
 development:
   <<: *default
