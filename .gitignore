@@ -38,3 +38,5 @@
 # Ignore Jetbrains Application's configs
 .idea/
 coverage/
+
+/config/credentials/test.key
