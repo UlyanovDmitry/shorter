@@ -24,7 +24,11 @@ module Admin
     def show
       link = user_links.find_by!(unique_key: params_url_key)
 
-      render json: { url_key: params_url_key, count: link.use_count.to_s }
+      result = LinkSerializer.new(link)
+        .serializable_hash
+        .merge(clicks_count: link.clicks.count)
+
+      render json: result
     end
 
     def destroy

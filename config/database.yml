@@ -13,15 +13,15 @@ primary_replica: &primary_replica
   <<: *default
   user: <%= ENV.fetch("POSTGRES_RO_USER") { 'shorter_ro' } %>
   password: <%= ENV.fetch("POSTGRES_RO_USER_PASSWORD") { 'shorter_ro_password' } %>
-  replica: true
 
 development:
   primary:
     <<: *primary
-    database: shorter
+    database: shorter_development
   primary_replica:
     <<: *primary_replica
-    database: shorter
+    database: shorter_development
+    replica: true
 
 test:
   primary:
@@ -30,6 +30,7 @@ test:
   primary_replica:
     <<: *primary_replica
     database: shorter_test
+    replica: true
 
 production:
   primary:
@@ -38,3 +39,4 @@ production:
   primary_replica:
     <<: *primary_replica
     database: shorter_production
+    replica: true
