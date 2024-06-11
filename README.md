@@ -1,3 +1,6 @@
+[![Ruby on Rails CI](https://github.com/UlyanovDmitry/shorter/actions/workflows/rubyonrails.yml/badge.svg?branch=master)](https://github.com/UlyanovDmitry/shorter/actions/workflows/rubyonrails.yml)
+
+
 # README
 
 ## Тестовое задание
