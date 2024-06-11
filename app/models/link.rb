@@ -14,10 +14,6 @@ class Link < ApplicationRecord
     unique_key
   end
 
-  def increment_usage_count
-    self.class.increment_counter(:use_count, id, touch: true)
-  end
-
   private
 
   def generate_unique_key
