@@ -22,7 +22,7 @@ Bundler.require(*Rails.groups)
 module Shorter
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults 7.1
 
     config.active_job.queue_adapter = :sidekiq
     # Configuration for the application, engines, and railties goes here.
@@ -37,5 +37,17 @@ module Shorter
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # This also configures session_options for use below
+    config.session_store :cookie_store, key: 'shorter_session'
+
+    config.middleware.insert_before Rack::Head, ActionDispatch::Session::CookieStore, config.session_options
+    config.middleware.insert_before ActionDispatch::Session::CookieStore, ActionDispatch::Cookies
+
+    # Required for all session management (regardless of session_store)
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
+
+    config.middleware.use config.session_store, config.session_options
   end
 end

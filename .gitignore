@@ -33,6 +33,10 @@
 # Ignore all environment files (except templates).
 /.env*
 !/.env*.erb
+!/.env.example
 
 # Ignore Jetbrains Application's configs
 .idea/
+coverage/
+
+/config/credentials/test.key

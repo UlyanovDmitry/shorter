@@ -4,6 +4,7 @@ AllCops:
     - bin/*
     - vendor/**/**
     - gemfiles/vendor/bundle/**/*
+    - db/schema.rb
 
 Layout/CaseIndentation:
   EnforcedStyle: end
@@ -20,14 +21,10 @@ Style/BlockComments:
 
 Metrics/BlockLength:
   Exclude:
-    - spec/controllers/shortened_urls_controller_spec.rb
+    - spec/**/**
 
 Style/Documentation:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
   EnforcedStyle: never
-
-Style/NumericLiterals:
-  Exclude:
-    - db/schema.rb

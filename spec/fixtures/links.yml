@@ -3,4 +3,4 @@
 example_ru:
   url: 'https%3A%2F%2Fexample.ru'
   unique_key: abc
-  use_count: 10
+  user: admin

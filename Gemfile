@@ -3,7 +3,16 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.3.1'
 
+gem 'active_model_serializers'
+gem 'activerecord-import'
+gem 'devise'
+gem 'devise-jwt'
+gem 'mock_redis'
+
+# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+gem 'rack-cors'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
+gem 'paranoia', '~> 2.2'
 gem 'rails', '~> 7.1.3', '>= 7.1.3.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
@@ -22,13 +31,15 @@ gem 'redis', '~> 4.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
+gem 'sidekiq'
+gem 'sidekiq-scheduler'
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'yabeda-prometheus'
+gem 'yabeda-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'dotenv-rails'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 6.1.0'
 end
@@ -40,10 +51,3 @@ group :development do
   gem 'rubocop', require: false
   gem 'spring'
 end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'foreman'
-gem 'sidekiq'
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-gem 'yabeda-prometheus'
-gem 'yabeda-rails'

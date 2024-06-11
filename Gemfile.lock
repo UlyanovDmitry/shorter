@@ -50,6 +50,11 @@ GEM
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
+    active_model_serializers (0.10.14)
+      actionpack (>= 4.1)
+      activemodel (>= 4.1)
+      case_transform (>= 0.2)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     activejob (7.1.3.2)
       activesupport (= 7.1.3.2)
       globalid (>= 0.3.6)
@@ -59,6 +64,8 @@ GEM
       activemodel (= 7.1.3.2)
       activesupport (= 7.1.3.2)
       timeout (>= 0.4.0)
+    activerecord-import (1.7.0)
+      activerecord (>= 4.2)
     activestorage (7.1.3.2)
       actionpack (= 7.1.3.2)
       activejob (= 7.1.3.2)
@@ -79,28 +86,48 @@ GEM
       ruby-next-core (~> 1.0)
     ast (2.4.2)
     base64 (0.2.0)
+    bcrypt (3.1.20)
     bigdecimal (3.1.7)
     bootsnap (1.18.3)
       msgpack (~> 1.2)
     brakeman (6.1.2)
       racc
     builder (3.2.4)
-    byebug (11.1.3)
+    case_transform (0.2)
+      activesupport
     coderay (1.1.3)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     crass (1.0.6)
     date (3.3.4)
+    devise (4.9.4)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0)
+      responders
+      warden (~> 1.2.3)
+    devise-jwt (0.11.0)
+      devise (~> 4.0)
+      warden-jwt_auth (~> 0.8)
     diff-lcs (1.5.1)
-    dotenv (3.1.0)
-    dotenv-rails (3.1.0)
-      dotenv (= 3.1.0)
-      railties (>= 6.1)
     drb (2.2.1)
+    dry-auto_inject (1.0.1)
+      dry-core (~> 1.0)
+      zeitwerk (~> 2.6)
+    dry-configurable (1.1.0)
+      dry-core (~> 1.0, < 2)
+      zeitwerk (~> 2.6)
+    dry-core (1.0.1)
+      concurrent-ruby (~> 1.0)
+      zeitwerk (~> 2.6)
     dry-initializer (3.1.1)
     erubi (1.12.0)
+    et-orbi (1.2.11)
+      tzinfo
     ffi (1.16.3)
-    foreman (0.87.2)
+    fugit (1.11.0)
+      et-orbi (~> 1, >= 1.2.11)
+      raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.4)
@@ -110,6 +137,9 @@ GEM
       rdoc
       reline (>= 0.4.2)
     json (2.7.2)
+    jsonapi-renderer (0.2.2)
+    jwt (2.8.1)
+      base64
     language_server-protocol (3.17.0.3)
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -126,6 +156,7 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.5)
     minitest (5.22.3)
+    mock_redis (0.44.0)
     msgpack (1.7.2)
     mutex_m (0.2.0)
     net-imap (0.4.10)
@@ -150,7 +181,10 @@ GEM
       racc (~> 1.4)
     nokogiri (1.16.3-x86_64-linux)
       racc (~> 1.4)
+    orm_adapter (0.5.0)
     parallel (1.24.0)
+    paranoia (2.6.3)
+      activerecord (>= 5.1, < 7.2)
     parser (3.3.1.0)
       ast (~> 2.4.1)
       racc
@@ -165,8 +199,11 @@ GEM
       stringio
     puma (6.4.2)
       nio4r (~> 2.0)
+    raabro (1.4.0)
     racc (1.7.3)
     rack (3.0.10)
+    rack-cors (2.0.2)
+      rack (>= 2.0.0)
     rack-session (2.0.0)
       rack (>= 3.0.0)
     rack-test (2.1.0)
@@ -216,6 +253,9 @@ GEM
     regexp_parser (2.9.2)
     reline (0.5.0)
       io-console (~> 0.5)
+    responders (3.1.1)
+      actionpack (>= 5.2)
+      railties (>= 5.2)
     rexml (3.2.8)
       strscan (>= 3.0.9)
     rspec-core (3.13.0)
@@ -250,19 +290,33 @@ GEM
       parser (>= 3.3.1.0)
     ruby-next-core (1.0.3)
     ruby-progressbar (1.13.0)
+    rufus-scheduler (3.9.1)
+      fugit (~> 1.1, >= 1.1.6)
     sidekiq (7.2.2)
       concurrent-ruby (< 2)
       connection_pool (>= 2.3.0)
       rack (>= 2.2.4)
       redis-client (>= 0.19.0)
+    sidekiq-scheduler (5.0.3)
+      rufus-scheduler (~> 3.2)
+      sidekiq (>= 6, < 8)
+      tilt (>= 1.4.0)
     spring (4.1.3)
     stringio (3.1.0)
     strscan (3.1.0)
     thor (1.3.1)
+    tilt (2.3.0)
     timeout (0.4.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
+    warden (1.2.9)
+      rack (>= 2.0.9)
+    warden-jwt_auth (0.8.0)
+      dry-auto_inject (>= 0.8, < 2)
+      dry-configurable (>= 0.13, < 2)
+      jwt (~> 2.1)
+      warden (~> 1.2)
     webrick (1.8.1)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
@@ -291,20 +345,25 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  active_model_serializers
+  activerecord-import
   bootsnap
   brakeman
-  byebug
-  dotenv-rails
-  foreman
+  devise
+  devise-jwt
   listen (~> 3.3)
+  mock_redis
+  paranoia (~> 2.2)
   pg (~> 1.1)
   pry-rails
   puma (>= 5.0)
+  rack-cors
   rails (~> 7.1.3, >= 7.1.3.2)
   redis (~> 4.0)
   rspec-rails (~> 6.1.0)
   rubocop
   sidekiq
+  sidekiq-scheduler
   spring
   tzinfo-data
   yabeda-prometheus
@@ -314,4 +373,4 @@ RUBY VERSION
    ruby 3.3.1p55
 
 BUNDLED WITH
-   2.5.6
+   2.5.9
